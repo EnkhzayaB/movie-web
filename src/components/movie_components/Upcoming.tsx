@@ -14,9 +14,9 @@ const Upcoming = ({ title, rate, image }: UpcomingProps) => {
         alt="poster"
         className="w-[300px] rounded-md"
       />
-      <div className="bg-[#f4f4f6] border rounded-md">
+      <div className="bg-[#f4f4f6] border rounded-md h-[90px]">
         <p className="text-lg font-bold ml-[16px] mt-2">{title}</p>
-        <div className="flex items-center">
+        <div className="flex items-center mt-3">
           <img src="/movie-web-img/star.svg" className="ml-[5px]" />
           <p className="text-lg font-bold ml-[10px]">{rate}</p>
           <p className="text-lg ">/10</p>

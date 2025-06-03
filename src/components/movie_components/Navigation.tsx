@@ -16,7 +16,7 @@ const Navigation = () => {
 
         <div className="flex items-center gap-2.5 py-2 pl-4 pr-4 w-[370px] rounded-lg border border-[#E4E4E7]">
           <img src="/movie-web-img/search-item.svg" alt="" />
-          <input type="text" placeholder="Search.." />
+          <input type="text" placeholder="Search.." className="outline-none" />
         </div>
         <div className="flex w-[36px] h-[36px] py-2 pl-4 pr-4 gap-2 items-center justify-center">
           <img

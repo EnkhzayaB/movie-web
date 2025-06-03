@@ -1,11 +1,11 @@
-type PopularProps = {
+type TopRatedProps = {
   title: string;
   rate: number;
   image?: string;
   backdrop_path?: string;
 };
 
-const Popular = ({ title, rate, image, backdrop_path }: PopularProps) => {
+const TopRated = ({ title, rate, image, backdrop_path }: TopRatedProps) => {
   const imageUrl = "https://image.tmdb.org/t/p/w500";
 
   return (
@@ -15,9 +15,9 @@ const Popular = ({ title, rate, image, backdrop_path }: PopularProps) => {
         alt="poster"
         className="w-[300px] rounded-md"
       />
-      <div className="bg-[#f4f4f6] border rounded-md h-[110px]">
+      <div className="bg-[#f4f4f6] border rounded-md h-[90px]">
         <p className="text-lg mt-2 font-bold ml-[16px]">{title}</p>
-        <div className="flex items-center mt-2.5">
+        <div className="flex items-center mt-3">
           <img
             src="/movie-web-img/star.svg"
             alt="rate-icon"
@@ -31,4 +31,4 @@ const Popular = ({ title, rate, image, backdrop_path }: PopularProps) => {
   );
 };
 
-export default Popular;
+export default TopRated;

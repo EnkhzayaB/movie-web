@@ -3,7 +3,6 @@ import { useState } from "react";
 type FeatureProps = {
   title: string;
   image?: string;
-  vote: number;
   key: number;
   summary: string;
   rate: number;
