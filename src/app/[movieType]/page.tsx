@@ -1,6 +1,12 @@
 // sever side
+import Link from "next/link";
+import Navigation from "@/components/movie_components/Navigation";
+import { Footer } from "@/components/movie_components/Footer";
+import Cards from "@/components/movie_components/Cards";
+
 const MovieType = async ({ params }: { params: { movieType: string } }) => {
   console.log("params", await params.movieType);
+
   const url = await params.movieType;
   const baseUrl = "https://api.themoviedb.org/3/movie";
   const token =
@@ -13,8 +19,38 @@ const MovieType = async ({ params }: { params: { movieType: string } }) => {
     }
   );
   const data = await responsePopular.json();
-  console.log("data", data);
-  return <div>movie types: {url} </div>;
+
+  // console.log("data", data);
+
+  return (
+    <div>
+      <Navigation />
+
+      <div className="max-w-[1600px] m-auto py-5 flex flex-col gap-11 mt-10">
+        <div className="flex relative">
+          <div className="flex items-center">
+            <h1 className="font-semibold text-4xl mb-12">{url}</h1>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-5 gap-5">
+          {data?.results?.map((movie) => {
+            return (
+              <Cards
+                key={movie.id}
+                title={movie.title}
+                rate={movie.vote_average}
+                image={movie.poster_path}
+                backdrop_path={movie.poster_path}
+              />
+            );
+          })}
+        </div>
+      </div>
+
+      <Footer />
+    </div>
+  );
 };
 
 export default MovieType;

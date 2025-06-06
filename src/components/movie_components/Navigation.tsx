@@ -1,4 +1,5 @@
-import Genre from "@/components/movie_components/Genre";
+import Genres from "@/components/movie_components/Genres";
+
 const Navigation = () => {
   return (
     <div>
@@ -12,7 +13,7 @@ const Navigation = () => {
           <p className="text-2xl italic font-bold  text-[#4338CA]">Movie Z</p>
         </div>
 
-        <Genre />
+        <Genres />
 
         <div className="flex items-center gap-2.5 py-2 pl-4 pr-4 w-[370px] rounded-lg border border-[#E4E4E7]">
           <img src="/movie-web-img/search-item.svg" alt="" />

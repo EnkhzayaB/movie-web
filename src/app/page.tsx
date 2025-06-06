@@ -1,11 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
 import Navigation from "@/components/movie_components/Navigation";
-import Upcoming from "@/components/movie_components/Upcoming";
 import { Footer } from "@/components/movie_components/Footer";
 import Feature from "@/components/movie_components/Feature";
-import Popular from "@/components/movie_components/Popular";
-import TopRated from "@/components/movie_components/TopRated";
+import Cards from "@/components/movie_components/Cards";
+import Detail from "@/components/movie_components/Detail";
 import Link from "next/link";
 const token =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNjdkOGJlYmQwZjRmZjM0NWY2NTA1Yzk5ZTlkMDI4OSIsIm5iZiI6MTc0MjE3NTA4OS4zODksInN1YiI6IjY3ZDc3YjcxODVkMTM5MjFiNTAxNDE1ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KxFMnZppBdHUSz_zB4p9A_gRD16I_R6OX1oiEe0LbE8";
@@ -27,13 +26,13 @@ const Home = () => {
   const [popularMovies, setPopularMovies] = useState<MovieResponse>({
     results: [],
   });
-  const [upcomingMovies, setUpcomingMovies] = useState<MovieResponse>({
+  const [upcomingMovies, setUpcominMovies] = useState<MovieResponse>({
     results: [],
   });
-  const [topRatedMovies, SetTopRatedMovies] = useState<MovieResponse>({
+  const [topRatedMovies, setTopRatedMovies] = useState<MovieResponse>({
     results: [],
   });
-  const [allMovies, setAllMovies] = useState<MovieResponse>({
+  const [nowPlayingMovies, setNowPlayingMovies] = useState<MovieResponse>({
     results: [],
   });
   const [searchValue, setSearchValue] = useState("");
@@ -49,28 +48,13 @@ const Home = () => {
       });
   }, []);
 
-  // const fetchPopularData = async () => {
-  //   try {
-  //     const reponsePopular = await fetch(
-  //       `${baseUrl}/popular?language=en-US&page=1`,
-  //       {
-  //         headers: { Authorization: `Bearer ${token}` },
-  //       }
-  //     );
-  //     const dataPopular = await response.json();
-  //     setPopularMovies(data);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
   useEffect(() => {
     fetch(`${baseUrl}/upcoming?language=en-US&page=1`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
       .then((data) => {
-        setUpcomingMovies(data);
+        setUpcominMovies(data);
       });
   }, []);
 
@@ -80,28 +64,40 @@ const Home = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        SetTopRatedMovies(data);
+        setTopRatedMovies(data);
       });
   }, []);
 
+  useEffect(() => {
+    fetch(`${baseUrl}/now_playing?language=en-US&page=1`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setNowPlayingMovies(data);
+      });
+  }, []);
   // console.log("first", popularMovies.results.slice(0, 5));
+
   return (
     <div>
       <Navigation />
 
-      <div className="flex pt-6 overflow-x-scroll">
-        {popularMovies.results.slice(0, 5).map((banner) => {
-          return (
-            <Feature
-              key={banner.id}
-              title={banner.title}
-              summary={banner.overview}
-              image={banner.backdrop_path}
-              rate={banner.vote_average}
-            />
-          );
-        })}
-      </div>
+      <Link href="/Detail">
+        <div className="flex pt-6 overflow-x-scroll">
+          {nowPlayingMovies.results?.slice(0, 10).map((banner) => {
+            return (
+              <Feature
+                key={banner.id}
+                title={banner.title}
+                summary={banner.overview}
+                image={banner.backdrop_path}
+                rate={banner.vote_average}
+              />
+            );
+          })}
+        </div>
+      </Link>
 
       <div className="max-w-[1600px] m-auto py-5 flex flex-col gap-11 mt-10">
         <section>
@@ -123,7 +119,7 @@ const Home = () => {
           <div className="grid grid-cols-5 gap-5">
             {popularMovies?.results.slice(0, 10).map((movie) => {
               return (
-                <Popular
+                <Cards
                   key={movie.id}
                   title={movie.title}
                   rate={movie.vote_average}
@@ -150,7 +146,7 @@ const Home = () => {
           <div className="grid grid-cols-5 gap-5">
             {upcomingMovies?.results.slice(0, 10).map((movie) => {
               return (
-                <Upcoming
+                <Cards
                   key={movie.id}
                   title={movie.title}
                   rate={movie.vote_average}
@@ -176,7 +172,7 @@ const Home = () => {
           <div className="grid grid-cols-5 gap-5">
             {topRatedMovies?.results.slice(0, 10).map((movie) => {
               return (
-                <TopRated
+                <Cards
                   key={movie.id}
                   title={movie.title}
                   rate={movie.vote_average}
