@@ -1,3 +1,4 @@
+import Link from "next/link";
 type CardsProps = {
   title: string;
   rate: number;
